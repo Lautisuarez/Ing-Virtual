@@ -1,4 +1,4 @@
-// Creamos la conversacion y le decimos a la IA como debe actuar
+// Conversacion que para decirle a la IA como debe actuar
 const conversationArray = [
     { 
         role: 'system',

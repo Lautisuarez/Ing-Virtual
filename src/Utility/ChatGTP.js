@@ -1,14 +1,8 @@
-const { createProvider, CoreClass } = require('@bot-whatsapp/bot')
-const { config } = require('dotenv')
-const MetaProvider = require('@bot-whatsapp/provider/meta')
-const JsonFileAdapter = require('@bot-whatsapp/database/json')
+const { CoreClass } = require('@bot-whatsapp/bot')
 const { Configuration, OpenAIApi } = require('openai')
 const { conversationArray } = require('./conversation.js')
 
-// --------------------- INICIALIZAMOS DOTENV ---------------------
-config()
-
-// --------------------- CHAGPT CLASE ---------------------
+// -------------- CLASE --------------
 const ChatGPTClass = class extends CoreClass {
     queu = [];
     optionsGPT = { model:"gpt-3.5-turbo" };
@@ -62,21 +56,4 @@ const ChatGPTClass = class extends CoreClass {
     }
 }
 
-// --------------------- CODIGO APP.JS ---------------------
-const createBotGPT = async ({provider,database}) => new ChatGPTClass(database, provider);
-
-const main = async () => {
-    const adapterDB = new JsonFileAdapter()
-    const adapterProvider = createProvider(MetaProvider, {
-        jwtToken: process.env.WSP_API_TOKEN,
-        numberId: process.env.ID_BOT,
-        verifyToken: process.env.VERIFY_TOKEN,
-        version: 'v16.0',
-    })
-   createBotGPT({
-        provider: adapterProvider, 
-        database: adapterDB
-    })
-}
-
-main()
+module.exports = { ChatGPTClass };
