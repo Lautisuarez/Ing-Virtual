@@ -1,0 +1,27 @@
+{
+    "name": "ing-virtual",
+    "version": "1.0.0",
+    "description": "",
+    "main": "app.js",
+    "scripts": {
+        "start": "node app.js"
+    },
+    "engines": {
+        "node": ">=16.9"
+    },
+    "keywords": [],
+    "dependencies": {
+        "@bot-whatsapp/bot": "latest",
+        "@bot-whatsapp/cli": "latest",
+        "@bot-whatsapp/database": "latest",
+        "@bot-whatsapp/provider": "latest",
+        "axios": "^1.2.1",
+        "body-parser": "^1.20.1",
+        "chatgpt": "^5.2.5",
+        "dotenv": "^16.3.1",
+        "openai": "^3.3.0",
+        "polka": "^0.5.2"
+    },
+    "author": "",
+    "license": "ISC"
+}
