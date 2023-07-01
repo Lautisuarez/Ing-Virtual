@@ -1,6 +1,6 @@
 const { CoreClass } = require('@bot-whatsapp/bot')
 const { Configuration, OpenAIApi } = require('openai')
-const { conversationArray } = require('./conversation.js')
+const { conversationArray } = require('../Utility/conversation.js')
 
 // -------------- CLASE --------------
 const ChatGPTClass = class extends CoreClass {
@@ -29,29 +29,37 @@ const ChatGPTClass = class extends CoreClass {
         })
         let response = "";
         let completion = "";
+        let parseMessage = "";
         // Traemos la respuesta de la IA
         if(body.toLowerCase().includes('imagen:')){
+            // Si el usuario pide una imagen
             response = await this.openai.createImage({
                 prompt: body,
-                n: 2,
+                n: 1,
                 size: "1024x1024"
             })  
-            completion = "Imagen 1: " + response.data.data[0].url + "\nImagen 2: " + response.data.data[1].url;
+            parseMessage = {
+                completion,
+                answer: "Imagen",
+                options: {
+                    media: response.data.data[0].url
+                }
+            };
         } else {
+            // Si el usuario pide una respuesta de texto
             response = await this.openai.createChatCompletion({
                 model: 'gpt-3.5-turbo',
                 messages: conversationArray,
             })  
             conversationArray.push(response.data.choices[0].message)
             completion = response.data.choices[0].message.content;
+            parseMessage = {
+                completion,
+                answer: completion
+            };
+            this.queu.push(completion);
         }
-        
-        this.queu.push(completion);
-
-        const parseMessage = {
-            ...completion,
-            answer: completion
-        };
+        // Enviamos el mensaje
         this.sendFlowSimple([parseMessage], from)
     }
 }

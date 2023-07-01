@@ -355,7 +355,7 @@ class MetaProvider extends ProviderClass {
             const response = await axios.post(`${URL}/${this.version}/${this.numberId}/messages`, body, {
                 headers: {
                     Authorization: `Bearer ${this.jwtToken}`,
-                },
+                }
             });
             return response.data
         } catch (error) {
@@ -381,7 +381,8 @@ class MetaProvider extends ProviderClass {
     sendMedia = async (number, _, mediaInput = null) => {
         if (!mediaInput) throw new Error(`MEDIA_INPUT_NULL_: ${mediaInput}`)
         const body = {
-            messaging_product: 'whatsapp',
+            messaging_product: "whatsapp",
+            recipient_type: "individual",
             to: number,
             type: 'image',
             image: {
@@ -499,7 +500,6 @@ class MetaProvider extends ProviderClass {
     sendMessage = async (number, message, { options }) => {
         if (options?.buttons?.length) return this.sendButtons(number, message, options.buttons)
         if (options?.media) return this.sendMedia(number, message, options.media)
-
         this.sendtext(number, message);
     }
 }

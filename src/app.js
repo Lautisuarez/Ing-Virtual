@@ -2,7 +2,7 @@ const { createProvider } = require('@bot-whatsapp/bot')
 const JsonFileAdapter = require('@bot-whatsapp/database/json')
 const { config } = require('dotenv')
 const MetaProvider = require('./Utility/meta.js')
-const { ChatGPTClass } = require("./Utility/ChatGTP.js")
+const { ChatGPTClass } = require("./Class/ChatGTP.js")
 
 config() // Configuracion de dotenv
 
