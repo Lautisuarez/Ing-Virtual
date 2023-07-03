@@ -33,8 +33,9 @@ const ChatGPTClass = class extends CoreClass {
         // Traemos la respuesta de la IA
         if(body.toLowerCase().includes('imagen:')){
             // Si el usuario pide una imagen
+            const bodyFilter = body.toLowerCase().replace('imagen:', '');
             response = await this.openai.createImage({
-                prompt: body,
+                prompt: bodyFilter,
                 n: 1,
                 size: "1024x1024"
             })  
